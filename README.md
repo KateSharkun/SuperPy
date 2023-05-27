@@ -5,10 +5,12 @@ Do operations with product stock: add and remove bought and sell products and ge
 reports.
 All the dates in all the arguments are added in format YYYY-MM-DD.
 
-
 Tool suports next operations:
 
 - `buy` - adds bought products to the stock table. 
+
+*USAGE*: SuperPy buy [-h] --product-name PRODUCT_NAME [--date YYYY-MM-DD] --price decimal or integer number
+                   --expiration-date YYYY-MM-DD
 
 Optional arguments: 
   
@@ -16,26 +18,31 @@ Optional arguments:
  
  `--date` - buy date, default - today's day
  
- `--price -p`
+ `--price -p` buy price
  
  `--expiration-date -e`, add expiration date in format YYYY-MM-DD
 
 
-- `sell` command allows to sell any bought product and requires next arguments:
- `--product-name -n` 
-  `--price -p`
-  `--sell-date -s`
+- `sell` command allows to sell any product available in the database.
+*USAGE* SuperPy sell [-h] --product-name PRODUCT_NAME --price decimal or integer number [--sell-date YYYY-MM-DD]
+
+
+ `--product-name -n` name of a product you would like to sell
+  `--price -p` selling price
+  `--sell-date -s` set for default as todays date percieved by the app
 
 
 - `advance_time` changes date percieved by the app as "today". You can manually set the date that will be automatically used by app
 
+*USAGE* SuperPy advance_time [-h] [-c number/YYYY-MM-DD] [-r]
 
  `-change --c`  requires number or full date in format YYYY-MM-DD. Argument either adds or subtracts given amount of days from the current date or replaces current day in the app by provided literal.                    
  
- `-reset --r` resets todays date to an actual date
+ `-reset --r` resets todays date to an actual date for today
 
 - `report` with subcommands allow to generate various reports. You can get inventory, revenue or profit report.
 
+*USAGE*  SuperPy report [-h]
 
 Each of this commands supports two optional arguments: 
 
