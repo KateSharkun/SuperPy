@@ -45,7 +45,7 @@ def change_todays_date(d='today'):
         elif d['change'] is not None:
             try:                
                 d = int(d['change'])
-                date_today += str(datetime.strptime(date_today,'%Y-%m-%d').date() + timedelta(days = d))
+                date_today += str(datetime.strptime(today(),'%Y-%m-%d').date() + timedelta(days = d)) #minor change
                 change_date(date_today)
             except ValueError:
                 try:
