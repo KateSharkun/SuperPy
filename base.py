@@ -11,20 +11,10 @@ from rich.pretty import pprint
 
 
 def add_item(item):
-    item.pop('func') 
-    df = pd.DataFrame()
-    df.index = [x for x in range(1, len(df.values)+1)]
-    df.index.name = 'id'
-    df_new_row = pd.DataFrame([item])
-    df = pd.concat([df, df_new_row])  
-    df.to_csv('bought.csv', mode='a', index=False, header=False)
+    item.pop('func') #removing info on sub-command function
+    df = pd.DataFrame([item]) #creating a row for a dataframe with all the command-line data, stored in dict where keys are arguments and values are command-line passed values 
+    df.to_csv('bought.csv', mode='a', index=False, header=False) #appending a row to our csv file 
     pprint('OK')
-   
-
-  
-   
-
-
 
 def sell_item(item):
     #removing a function information from a namespace
@@ -32,16 +22,16 @@ def sell_item(item):
     #getting Dataframe of a table with bougth items
     df = pd.read_csv('bought.csv')
     df.index = [x for x in range(1, len(df.values)+1)] #setting index to start from 1
-    df.index.name = 'id'
+    df.index.name = 'id' #setting index column name
     
-    #getting Dataframe of table with sold items
+    #getting Dataframe of a table with sold items
     ds = pd.read_csv('sold.csv')    
     ds.index = [x for x in range(1, len(ds.values)+1)]
     ds.index.name = 'id'
     #print(tabulate(ds, headers="keys", tablefmt = "psql"))
     
     
-    #getting list of all bought_id`s 
+    #getting list of all bought_id`s - id of an item in a bought.id table
     
     bought_ids = ds['bought_id'].to_list()
     sold_item = None
@@ -49,7 +39,7 @@ def sell_item(item):
     #getting a list of all bought items that has sold item name
     sell_item_id = df.index[df['product_name'] == item['product_name']].to_list()  
     #print(sell_item_id, ' all item in bought.csv that equal to item we want to sell')
-    for i in bought_ids:    #checking if the products we found in bougt items are not sold
+    for i in bought_ids:    #checking if the products we found in bought items are not sold
             if i in sell_item_id:
                 sell_item_id.remove(i)
     if len(sell_item_id) == 0:
