@@ -1,22 +1,21 @@
 # SuperPy
 A command-line tool for registering buying and selling products
 
-Do operations with product stock: add and remove bought and sell products and get various
+Do operations with product stock: record purchasing and selling and get various
 reports.
 All the dates in all the arguments are added in format YYYY-MM-DD.
 
-Tool suports next operations:
+The tool supports next operations:
 
-- `buy` - adds bought products to the stock table. 
+ - `buy` - adds bought products to the stock table. 
 
-*USAGE*: SuperPy buy [-h] --product-name PRODUCT_NAME [--date YYYY-MM-DD] --price decimal or integer number
-                   --expiration-date YYYY-MM-DD
+**USAGE**: SuperPy buy [--product-name] [--date] [--price][--expiration-date] 
 
-Optional arguments: 
+Optional arguments:  
   
 `--product-name -n`, string,indicate product's name
  
- `--date` - buy date, default - today's day
+ `--date` - buy date, default - today's day, YYYY-MM-DD
  
  `--price -p` buy price
  
@@ -24,7 +23,7 @@ Optional arguments:
 
 
 - `sell` command allows to sell any product available in the database.
-*USAGE* SuperPy sell [-h] --product-name PRODUCT_NAME --price decimal or integer number [--sell-date YYYY-MM-DD]
+**USAGE** SuperPy sell [-h] --product-name PRODUCT_NAME --price decimal or integer number [--sell-date YYYY-MM-DD]
 
 
  `--product-name -n` name of a product you would like to sell
@@ -34,7 +33,7 @@ Optional arguments:
 
 - `advance_time` changes date percieved by the app as "today". You can manually set the date that will be automatically used by app
 
-*USAGE* SuperPy advance_time [-h] [-c number/YYYY-MM-DD] [-r]
+**USAGE** SuperPy advance_time [-h] [-change] [-reset]
 
  `-change --c`  requires number or full date in format YYYY-MM-DD. Argument either adds or subtracts given amount of days from the current date or replaces current day in the app by provided literal.                    
  
@@ -42,7 +41,7 @@ Optional arguments:
 
 - `report` with subcommands allow to generate various reports. You can get inventory, revenue or profit report.
 
-*USAGE*  SuperPy report [-h]
+**USAGE**  SuperPy report [-h]
 
 Each of this commands supports two optional arguments: 
 
