@@ -67,21 +67,21 @@ def sell_item(item):
                 pprint('Product out of stock')
 
 
-def report_inventory(time):
-    df = pd.read_csv('bought.csv')
+def report_inventory(time): 
+    df = pd.read_csv('bought.csv') #creating dataframes for both "sold" and "bought" tables
     ds = pd.read_csv('sold.csv')
     
     df.index = [x for x in range(1, len(df.values)+1)]
     df.index.name = 'id'
-    
+    #formatting indexing to start from 1 and not from 0
     ds.index = [x for x in range(1, len(ds.values)+1)]
     ds.index.name = 'id'
     
-    bought_ids = ds['bought_id'].to_list()
+    bought_ids = ds['bought_id'].to_list()   #creating a list of id`s of all bought products
 
    
     if time['now'] == True:  
-        dt = df[~df.index.isin(bought_ids)].reset_index(drop=True)
+        dt = df[~df.index.isin(bought_ids)].reset_index(drop=True)  #removing all items that have been sold from bought dataframe
         dt.index += 1
         if dt.empty:
             pprint('The stock is empty')
@@ -93,11 +93,11 @@ def report_inventory(time):
             console.log(table, style="green")
 
     else:
-        df['buy_date'] = df[['buy_date']].apply(pd.to_datetime)
-        dt = df.loc[df['buy_date'] <= time['on_date']]
-        filtered = dt[~dt.index.isin(bought_ids)].reset_index(drop=True)
+        df['buy_date'] = df[['buy_date']].apply(pd.to_datetime)  #changin string representation of date to datetime format to be able to compare it
+        dt = df.loc[df['buy_date'] <= time['on_date']]      #creating filtered dataframe where date <= requested date
+        filtered = dt[~dt.index.isin(bought_ids)].reset_index(drop=True)  #final dataframe without sold products
         
-        if filtered.empty == True:
+        if filtered.empty == True: #in case there were no products available till/on that date
             table_2 = Table(f"Report: present in stock on {time['on_date']}", style='black')
             table_2.add_row('No items were available on that day')
             console = Console()
@@ -111,18 +111,18 @@ def report_inventory(time):
        
         
 def report_revenue(time): 
-    df = pd.read_csv('sold.csv')
+    df = pd.read_csv('sold.csv')   #creating dataframe with all sold items
     if time['now'] == True:
-        revenue = df['sell_price'].sum()
+        revenue = df['sell_price'].sum()    #summing revenue
  
         table = Table("Report: general revenue")
         table.add_row(str(f'{revenue:.2f}'))
         console = Console()
         console.log(table, style="green")
     else:
-        df['sell_date'] = df[['sell_date']].apply(pd.to_datetime)
-        dt = df.loc[df['sell_date'] <= time['on_date']]       
-        revenue = dt['sell_price'].sum()
+        df['sell_date'] = df[['sell_date']].apply(pd.to_datetime) #changin string representation of date to datetime format to be able to compare it
+        dt = df.loc[df['sell_date'] <= time['on_date']]       #creating filtered dataframe where date <= requested date
+        revenue = dt['sell_price'].sum()                     #summing 
 
         table = Table(f"Report: revenue on {time['on_date']}", style='black')
         table.add_row(str(f'{revenue:.2f}'))
